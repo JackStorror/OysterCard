@@ -22,11 +22,11 @@ end
       expect{ subject.top_up(5) }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
     end
   end
-  context '#deduct' do
-    it 'deducts the cost of trip from balance' do
-      expect{ subject.deduct(4) }.to change{ subject.balance }.by(-4)
-    end
-  end
+  #context '#deduct' do
+  #  it 'deducts the cost of trip from balance' do
+  #    expect{ subject.deduct(4) }.to change{ subject.balance }.by(-4)
+  #  end
+  #end
   context '#in_journey?' do
     it 'check whether oyster is currently in a journey' do
       expect(subject.in_journey?).to be(true).or be(false)
@@ -45,6 +45,9 @@ end
       it 'ends the journey' do
         subject.touch_out
         expect(subject.in_journey?).to be false
+      end
+      it 'charges balance for journey taken' do
+        expect {subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
       end
     end
   end
