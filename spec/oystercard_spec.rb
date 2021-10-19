@@ -27,4 +27,21 @@ end
       expect{ subject.deduct(4) }.to change{ subject.balance }.by(-4)
     end
   end
+  context '#in_journey?' do
+    it 'check whether oyster is currently in a journey' do
+      expect(subject.in_journey?).to be(true).or be(false)
+    end
+    context '#touch_in' do
+      it 'begins journey' do
+        subject.touch_in
+        expect(subject.in_journey?).to be true
+      end
+    end
+    context '#touch_out' do
+      it 'ends the journey' do
+        subject.touch_out
+        expect(subject.in_journey?).to be false
+      end
+    end
+  end
 end
