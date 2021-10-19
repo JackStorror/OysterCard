@@ -10,4 +10,8 @@ MAXIMUM_BALANCE = 90
     fail "Maximum balance of #{MAXIMUM_BALANCE} exceeded" if amount + @balance > MAXIMUM_BALANCE
     @balance += amount
   end
+
+  def deduct(fare)
+    @balance -= fare
+  end
 end

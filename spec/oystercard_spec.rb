@@ -8,6 +8,7 @@ describe Oystercard do
     it 'has default balance of 0' do
       expect(subject.balance).to eq(0)
   end
+end
   context '#top_up' do
     let(:maximum_balance) {maximum_balance = Oystercard::MAXIMUM_BALANCE}
     it 'increases the balance' do
@@ -21,5 +22,9 @@ describe Oystercard do
       expect{ subject.top_up(5) }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
     end
   end
-end
+  context '#deduct' do
+    it 'deducts the cost of trip from balance' do
+      expect{ subject.deduct(4) }.to change{ subject.balance }.by(-4)
+    end
+  end
 end
