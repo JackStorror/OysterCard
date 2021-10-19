@@ -33,9 +33,13 @@ end
     end
     context '#touch_in' do
       it 'begins journey' do
+        subject.top_up(5)
         subject.touch_in
         expect(subject.in_journey?).to be true
       end
+      it 'checks for minimum balance before check in' do
+        expect { subject.touch_in }.to raise_error 'Balance below minimum fare'
+      end 
     end
     context '#touch_out' do
       it 'ends the journey' do
