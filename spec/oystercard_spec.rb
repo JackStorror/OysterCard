@@ -48,13 +48,37 @@ describe Oystercard do
 
   context '#touch_out' do
     it 'ends the journey' do
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject.in_journey?).to be false
     end
 
     it 'charges balance for journey taken' do
-      expect {subject.touch_out }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
+      expect {subject.touch_out(station) }.to change{ subject.balance }.by(-Oystercard::MINIMUM_FARE)
     end
+  end
+
+  context 'Journey tests' do
+  let(:entry_station) { double :station }
+  let(:exit_station) { double :station }
+    let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
+
+    it 'has an empty list of journeys by default' do
+      expect(subject.journey).to be_empty
+    end
+
+    it 'stores exit station' do
+      subject.top_up(5)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.exit_station).to eq exit_station
+    end
+
+   # it 'stores a h' do
+   #   subject.top_up(5)
+   #   subject.touch_in(station)
+   #   subject.touch_out(station)
+   #   expect(subject.journeys).to eq ([station, station])
+   # end
   end
 end
 
