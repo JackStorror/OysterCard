@@ -15,11 +15,11 @@ end
       expect{ subject.top_up(5) }.to change{ subject.balance }.by(5) 
     end
     it 'Deposits of more than £90 raise error' do
-      expect{ subject.top_up(91) }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
+      expect{ subject.top_up(91) }.to raise_error "ERROR: Maximum limit of #{maximum_balance} has been reached"
     end
     it 'raises an error is the maximum balance is exceeded' do
       subject.top_up(maximum_balance)
-      expect{ subject.top_up(5) }.to raise_error "Maximum balance of #{maximum_balance} exceeded"
+      expect{ subject.top_up(5) }.to raise_error "ERROR: Maximum limit of #{maximum_balance} has been reached"
     end
   end
   #context '#deduct' do

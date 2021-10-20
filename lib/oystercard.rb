@@ -9,7 +9,7 @@ MINIMUM_FARE = 1
   end
 
   def top_up(amount)
-    fail "Maximum balance of #{MAXIMUM_BALANCE} exceeded" if amount + @balance > MAXIMUM_BALANCE
+    raise_limit_error?(amount)
     @balance += amount
   end
 
@@ -31,6 +31,10 @@ private
 
   def deduct(fare)
     @balance -= fare
+  end
+
+  def raise_limit_error?(amount)
+    raise "ERROR: Maximum limit of #{MAXIMUM_BALANCE} has been reached" if @balance + amount > MAXIMUM_BALANCE
   end
 
 end
